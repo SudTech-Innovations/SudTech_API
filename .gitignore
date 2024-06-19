@@ -1,2 +1,5 @@
 # Git 
 .gitattributes
+
+# Node
+/node_modules
