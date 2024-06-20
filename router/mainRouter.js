@@ -2,16 +2,21 @@ const express = require("express");
 const router = express.Router();
 const security = require("../middleware/security");
 const authRouter = require("../router/authRouter");
+const codeHandler = require("../util/codeHandler");
 
 router.use("/auth", authRouter);
 
 router.get("/", security, async (req, res) => {
   try {
-    const message = "API opérationnelle";
-    res.status(200).json({ message });
+    const api_status = "online";
+    const datetime = new Date().toLocaleString("fr-FR").toString();
+    const message = "Bienvenue sur l'API de SudTech";
+
+    const response = { api_status, datetime, message };
+    codeHandler.handle200Success(res, response);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    codeHandler.handle500Error(res);
   }
 });
 

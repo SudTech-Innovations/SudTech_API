@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
+const codeHandler = require("../util/codeHandler");
 
 dotenv.config();
 
@@ -17,8 +18,7 @@ const verifyBearerToken = async (req, res, next) => {
       next();
     });
   } catch (error) {
-    const errorMessage = error.message || "Erreur d'authentification";
-    res.status(401).json({ error: errorMessage });
+    codeHandler.handle401Error(res);
   }
 };
 

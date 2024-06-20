@@ -1,4 +1,5 @@
 const User = require("../model/user");
+const codeHandler = require("../util/codeHandler");
 
 exports.getUsers = async (req, res) => {
   try {
@@ -6,11 +7,14 @@ exports.getUsers = async (req, res) => {
       attributes: { exclude: ["password"] },
     });
     if (users.length === 0) {
-      return res.status(404).json({ message: "Aucun utilisateur trouvé" });
+      return codeHandler.handle404Personnalisable(
+        res,
+        "Aucun utilisateur trouvé"
+      );
     }
-    res.status(200).json({ users });
+    codeHandler.handle200Success(res, users);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Erreur du serveur interne" });
+    codeHandler.handle500Error(res);
   }
 };
