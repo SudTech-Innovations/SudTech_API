@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../model/user");
 const jwt = require("jsonwebtoken");
+const verifyBearerToken = require("../middleware/security");
+
+const User = require("../model/user");
+const userController = require("../controller/userController");
 
 router.post("/register", async (req, res) => {
   try {
@@ -33,5 +36,7 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+router.get("/users", verifyBearerToken, userController.getUsers);
 
 module.exports = router;
