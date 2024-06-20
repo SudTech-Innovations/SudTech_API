@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const security = require("../middleware/security");
+const authRouter = require("../router/authRouter");
+
+router.use("/auth", authRouter);
 
 router.get("/", security, async (req, res) => {
   try {
-    const message = "API oppérationnelle";
+    const message = "API opérationnelle";
     res.status(200).json({ message });
   } catch (error) {
     console.error(error);
