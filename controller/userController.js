@@ -7,10 +7,7 @@ exports.getUsers = async (req, res) => {
       attributes: { exclude: ["password"] },
     });
     if (users.length === 0) {
-      return codeHandler.handle404Personnalisable(
-        res,
-        "Aucun utilisateur trouvé"
-      );
+      return codeHandler.handle404User(res);
     }
     codeHandler.handle200Success(res, users);
   } catch (error) {

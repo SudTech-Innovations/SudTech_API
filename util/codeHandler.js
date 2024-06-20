@@ -8,8 +8,8 @@ exports.handle401Error = (res) => {
   res.status(401).json({ error: "Jeton invalide" });
 };
 
-exports.handle404Personnalisable = (res, message) => {
-  res.status(404).json({ message });
+exports.handle404User = (res) => {
+  res.status(404).json({ error: "Utilisateur non trouvé" });
 };
 
 // Code 2xx
