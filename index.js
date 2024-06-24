@@ -1,5 +1,6 @@
 const express = require("express");
-const cors = require("cors"); // Assurez-vous d'avoir installé le package cors
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const app = express();
 const mainRouter = require("./router/mainRouter");
 const initializeDatabase = require("./model/model");
@@ -12,7 +13,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
+app.use(cookieParser());
 app.use(express.json());
 
 initializeDatabase();

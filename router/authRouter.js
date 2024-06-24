@@ -28,8 +28,14 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ where: { username } });
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign({ userId: user.id }, process.env.SECRET_TOKEN, {
-        expiresIn: expirationTime,
+        expiresIn: expirationTime, // Assurez-vous que expirationTime est défini quelque part dans votre code
       });
+
+      res.cookie("token", token, {
+        httpOnly: false ,
+        maxAge: expirationTime * 1000,
+      });
+
       codeHandler.handle200Success(res, { token, expiresIn: expirationTime });
     } else {
       codeHandler.handle401Error(res);
