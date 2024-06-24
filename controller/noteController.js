@@ -19,9 +19,10 @@ exports.postNote = async (req, res) => {
     const note = new Note({
       title: req.body.title,
       content: req.body.content,
+      userId: req.userId,
     });
     await note.save();
-    codeHandler.handle201Created(res, note);
+    codeHandler.handle201Success(res, note);
   } catch (error) {
     console.error(error);
     codeHandler.handle500Error(res);
