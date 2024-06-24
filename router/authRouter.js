@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const verifyBearerToken = require("../middleware/security");
-const codeHandler = require("../util/codeHandler");
 const bcrypt = require("bcrypt");
+const codeHandler = require("../util/codeHandler");
 
 const User = require("../model/user");
 const userController = require("../controller/userController");
@@ -38,6 +38,20 @@ router.post("/login", async (req, res) => {
     console.error(error);
     codeHandler.handle500Error(res);
   }
+});
+
+router.get("/checkToken", (req, res) => {
+  if (!req.headers.authorization) {
+    codeHandler.handle401Error(res);
+  }
+  const token = req.headers.authorization.split(" ")[1];
+  jwt.verify(token, process.env.SECRET_TOKEN, (err, user) => {
+    if (err) {
+      codeHandler.handle401Error(res);
+    } else {
+      codeHandler.handle200Success(res, user);
+    }
+  });
 });
 
 router.get("/users", verifyBearerToken, userController.getUsers);

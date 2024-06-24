@@ -22,4 +22,10 @@ router.get("/", security, async (req, res) => {
   }
 });
 
+router.post("/logout", (req, res) => {
+  const message = "Vous avez été déconnecté";
+  const token = "";
+  res.json({ message, token });
+});
+
 module.exports = router;
