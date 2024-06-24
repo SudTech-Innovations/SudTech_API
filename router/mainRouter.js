@@ -6,6 +6,8 @@ const codeHandler = require("../util/codeHandler");
 
 router.use("/auth", authRouter);
 
+router.use("/api", security, require("./apiRouter.js"));
+
 router.get("/", security, async (req, res) => {
   try {
     const api_status = "online";
