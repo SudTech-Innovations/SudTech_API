@@ -6,6 +6,8 @@ const codeHandler = require("../util/codeHandler");
 
 router.use("/auth", authRouter);
 
+router.use("/api", security, require("./apiRouter.js"));
+
 router.get("/", security, async (req, res) => {
   try {
     const api_status = "online";
@@ -18,6 +20,12 @@ router.get("/", security, async (req, res) => {
     console.error(error);
     codeHandler.handle500Error(res);
   }
+});
+
+router.post("/logout", (req, res) => {
+  const message = "Vous avez été déconnecté";
+  const token = "";
+  res.json({ message, token });
 });
 
 module.exports = router;
