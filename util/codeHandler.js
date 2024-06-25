@@ -8,6 +8,10 @@ exports.handle401Error = (res) => {
   res.status(401).json({ error: "Jeton invalide" });
 };
 
+exports.handle403Error = (res) => {
+  res.status(403).json({ error: "Accès interdit" });
+};
+
 exports.handle404User = (res) => {
   res.status(404).json({ error: "Utilisateur non trouvé" });
 };

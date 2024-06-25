@@ -5,7 +5,7 @@ const authRouter = require("../router/authRouter");
 const codeHandler = require("../util/codeHandler");
 
 router.use("/auth", authRouter);
-
+router.use("/app", security, require("./appRouter.js"));
 router.use("/api", security, require("./apiRouter.js"));
 
 router.get("/", security, async (req, res) => {
