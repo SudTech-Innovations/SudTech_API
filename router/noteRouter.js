@@ -11,4 +11,12 @@ router.post("/", verifyBearerToken, (req, res) => {
   noteController.postNote(req, res);
 });
 
+router.put("/:id", verifyBearerToken, (req, res) => {
+  noteController.putNoteById(req, res);
+});
+
+router.delete("/:id", verifyBearerToken, (req, res) => {
+  noteController.deleteNoteById(req, res);
+});
+
 module.exports = router;
