@@ -7,7 +7,7 @@ router.get("/", verifyBearerToken, (req, res) => {
   userController.getUsers(req, res);
 });
 
-router.put("/:id", verifyBearerToken, (req, res) => {
+router.put("/", verifyBearerToken, (req, res) => {
   userController.updateUser(req, res);
 });
 

@@ -18,11 +18,13 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
-  const { id } = req.params;
   const { theme } = req.body;
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN);
+  const userId = decodedToken.userId;
 
   try {
-    const user = await User.findByPk(id);
+    const user = await User.findByPk(userId);
     if (!user) {
       return codeHandler.handle404User(res);
     }
