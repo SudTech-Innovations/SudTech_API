@@ -51,11 +51,14 @@ router.get("/checkToken", (req, res) => {
     codeHandler.handle401Error(res);
   }
   const token = req.headers.authorization.split(" ")[1];
-  jwt.verify(token, process.env.SECRET_TOKEN, (err, user) => {
+  jwt.verify(token, process.env.SECRET_TOKEN, async (err, user) => {
     if (err) {
       codeHandler.handle401Error(res);
     } else {
-      codeHandler.handle200Success(res, user);
+      const userWithTheme = await User.findByPk(user.userId, {
+        attributes: ["id", "username", "theme"],
+      });
+      codeHandler.handle200Success(res, userWithTheme);
     }
   });
 });
