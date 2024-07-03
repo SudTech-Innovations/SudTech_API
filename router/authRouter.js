@@ -8,7 +8,7 @@ const codeHandler = require("../util/codeHandler");
 const User = require("../model/user");
 const userController = require("../controller/userController");
 
-const expirationTime = 3600;
+const expirationTime = 86400;
 
 router.post("/register", async (req, res) => {
   try {
