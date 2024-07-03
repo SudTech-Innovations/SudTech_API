@@ -16,6 +16,12 @@ const User = sequelize.define("User", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  // More function
+  theme: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "light",
+  },
 });
 
 module.exports = User;

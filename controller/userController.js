@@ -1,5 +1,6 @@
 const User = require("../model/user");
 const codeHandler = require("../util/codeHandler");
+const jwt = require("jsonwebtoken");
 
 exports.getUsers = async (req, res) => {
   try {
@@ -10,6 +11,24 @@ exports.getUsers = async (req, res) => {
       return codeHandler.handle404User(res);
     }
     codeHandler.handle200Success(res, users);
+  } catch (error) {
+    console.error(error);
+    codeHandler.handle500Error(res);
+  }
+};
+
+exports.updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { theme } = req.body;
+
+  try {
+    const user = await User.findByPk(id);
+    if (!user) {
+      return codeHandler.handle404User(res);
+    }
+
+    await user.update({ theme });
+    codeHandler.handle200Success(res, { theme: user.theme });
   } catch (error) {
     console.error(error);
     codeHandler.handle500Error(res);

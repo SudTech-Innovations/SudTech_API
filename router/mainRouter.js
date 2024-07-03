@@ -3,10 +3,12 @@ const router = express.Router();
 const security = require("../middleware/security");
 const authRouter = require("../router/authRouter");
 const codeHandler = require("../util/codeHandler");
+const userRouter = require("../router/userRouter");
 
 router.use("/auth", authRouter);
 router.use("/app", security, require("./appRouter.js"));
-router.use("/api", security, require("./apiRouter.js"));
+// router.use("/api", security, require("./apiRouter.js"));
+router.use("/api/user", security, userRouter);
 
 router.get("/", security, async (req, res) => {
   try {
