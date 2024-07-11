@@ -2,6 +2,8 @@ const sequelize = require("../config/database");
 const dotenv = require("dotenv");
 
 const User = require("./user");
+const Plant = require("./plant");
+const Note = require("./note");
 
 const initializeDatabase = async () => {
   await sequelize.sync({ force: false });
