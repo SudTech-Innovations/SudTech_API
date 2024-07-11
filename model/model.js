@@ -14,6 +14,15 @@ const initializeDatabase = async () => {
       password: process.env.DEFAULT_PASSWORD,
     });
   }
+
+  const notes = await Note.findAll();
+  if (notes.length === 0) {
+    await Note.create({
+      title: "Nouvelle note",
+      content:
+        "Eu reprehenderit labore ea aliquip sit aliqua aliquip mollit nisi cupidatat elit aliquip Lorem.",
+    });
+  }
 };
 
 module.exports = initializeDatabase;
