@@ -55,26 +55,7 @@ exports.putPlantById = async (req, res) => {
     if (plant.userId !== req.userId) {
       return codeHandler.handle403Error(res);
     }
-    plant.commonName = req.body.commonName;
-    plant.scientificName = req.body.scientificName;
-    plant.family = req.body.family;
-    plant.genus = req.body.genus;
-    plant.species = req.body.species;
-    plant.plantType = req.body.plantType;
-    plant.origin = req.body.origin;
-    plant.hardinessZone = req.body.hardinessZone;
-    plant.maxHeight = req.body.maxHeight;
-    plant.maxWidth = req.body.maxWidth;
-    plant.lightRequirement = req.body.lightRequirement;
-    plant.soilPreference = req.body.soilPreference;
-    plant.waterRequirement = req.body.waterRequirement;
-    plant.floweringPeriod = req.body.floweringPeriod;
-    plant.flowerColor = req.body.flowerColor;
-    plant.foliageType = req.body.foliageType;
-    plant.usage = req.body.usage;
-    plant.description = req.body.description;
-    plant.imageUrl = req.body.imageUrl;
-    await plant.save();
+    await plant.update(req.body);
     codeHandler.handle200Success(res, plant);
   } catch (error) {
     console.error(error);
