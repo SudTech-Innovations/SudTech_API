@@ -8,11 +8,24 @@ exports.getUsers = async (req, res) => {
       attributes: { exclude: ["password"] },
     });
     if (users.length === 0) {
-      return codeHandler.handle404User(res);
+      return codeHandler.handle404Gen(res, "Utilisateur");
     }
     codeHandler.handle200Success(res, users);
   } catch (error) {
     console.error(error);
+    codeHandler.handle500Error(res);
+  }
+};
+
+exports.getUserById = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return codeHandler.handle404Gen(res, "Utilisateur");
+    }
+    codeHandler.handle200Success(res, user);
+  } catch (error) {
     codeHandler.handle500Error(res);
   }
 };
@@ -26,7 +39,7 @@ exports.updateUser = async (req, res) => {
   try {
     const user = await User.findByPk(userId);
     if (!user) {
-      return codeHandler.handle404User(res);
+      return codeHandler.handle404Gen(res, "Utilisateur");
     }
 
     await user.update({ theme });

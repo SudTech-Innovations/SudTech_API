@@ -16,11 +16,19 @@ exports.handle404User = (res) => {
   res.status(404).json({ error: "Utilisateur non trouvé" });
 };
 
-// Code 2xx
-exports.handle200Success = (res, data) => {
-  res.status(200).json(data);
+exports.handle404Gen = (res, req) => {
+  res.status(404).json({ error: req + " non trouvé" });
 };
 
-exports.handle201Success = (res, data) => {
-  res.status(201).json(data);
+// Code 2xx
+exports.handle200Success = (res, req) => {
+  res.status(200).json(req);
+};
+
+exports.handle201Success = (res, req) => {
+  res.status(201).json(req);
+};
+
+exports.handle204Success = (res) => {
+  res.status(204).json({ error: "Pas de contenu" });
 };
